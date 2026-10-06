@@ -23,6 +23,12 @@ else
 fi
 
 if [[ $errors -gt 0 ]]; then
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "[ERREUR] modifications non validées dans le dépôt" >&2
+  errors=$((errors + 1))
+else
+  echo "[OK] dépôt propre"
+fi
   echo "[ECHEC] $errors erreur(s)" >&2
   exit 1
 fi
